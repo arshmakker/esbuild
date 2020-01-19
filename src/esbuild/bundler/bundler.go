@@ -59,6 +59,17 @@ func parseFile(
 		ast, ok := parser.Parse(log, source, options)
 		results <- parseResult{source.Index, ast, ok}
 
+	case strings.HasSuffix(path, ".ts"):
+		options.TS.Parse = true
+		ast, ok := parser.Parse(log, source, options)
+		results <- parseResult{source.Index, ast, ok}
+
+	case strings.HasSuffix(path, ".tsx"):
+		options.TS.Parse = true
+		options.JSX.Parse = true
+		ast, ok := parser.Parse(log, source, options)
+		results <- parseResult{source.Index, ast, ok}
+
 	case strings.HasSuffix(path, ".json"):
 		expr, ok := parser.ParseJson(log, source)
 		ast := parser.ModuleExportsAST(source, expr)
