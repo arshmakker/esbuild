@@ -539,6 +539,18 @@ type SExpr struct {
 	Value Expr
 }
 
+type EnumValue struct {
+	Loc   Loc
+	Name  []uint16
+	Value Expr
+}
+
+type SEnum struct {
+	Name     LocRef
+	Values   []EnumValue
+	IsExport bool
+}
+
 type SNamespace struct {
 	Name     LocRef
 	Stmts    []Stmt
@@ -684,6 +696,7 @@ func (*SExportFrom) isStmt()    {}
 func (*SExportDefault) isStmt() {}
 func (*SExportStar) isStmt()    {}
 func (*SExpr) isStmt()          {}
+func (*SEnum) isStmt()          {}
 func (*SNamespace) isStmt()     {}
 func (*SFunction) isStmt()      {}
 func (*SClass) isStmt()         {}
